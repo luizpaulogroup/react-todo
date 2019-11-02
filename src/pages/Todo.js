@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import User from '../controllers/UserController';
+
+// Aplicação utilizando localStorage com ReactJS
+
 export default class Todo extends Component {
 
     constructor(props) {
@@ -8,33 +12,68 @@ export default class Todo extends Component {
         this.state = {
             name: '',
             email: '',
-            language: ''
+            language: '',
+            error: null
         }
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        const { name, email, language } = this.state;
+
+        if (name === '') {
+            this.setState({ error: 'name is required' });
+            return;
+        }
+
+        if (email === '') {
+            this.setState({ error: 'email is required' });
+            return;
+        }
+
+        if (language === '') {
+            this.setState({ error: 'language is required' });
+            return;
+        }
+
+        var user = {
+            name,
+            email,
+            language,
+        }
+
+        User.save(user);
+
+    }
+
     render() {
+
+        const { error } = this.state;
+
         return (
-            <view style={{
+            <div style={{
                 flex: 1,
+                margin: 'auto',
+                maxWidth: 720,
                 display: 'flex',
                 background: '#212121',
                 flexDirection: 'column',
-                justifyContent: 'center',
                 alignItems: 'center',
-                alignContent: 'center'
             }}>
                 <p style={{
                     color: '#FFF',
                     fontSize: 18
                 }}>Todo</p>
 
-                <form style={{
-                    maxWidth: 720,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: 20,
-                }}>
+                <form
+                    onSubmit={this.handleSubmit}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: 20,
+                    }}>
                     <div>
                         <div>
                             <input
@@ -49,7 +88,8 @@ export default class Todo extends Component {
                                     height: 25,
                                     width: '100%',
                                     outline: 'none',
-                                    background: '#212121'
+                                    background: '#212121',
+                                    color: '#FFF'
                                 }}
                                 placeholder="name"
                                 autoComplete="off"
@@ -69,7 +109,8 @@ export default class Todo extends Component {
                                     height: 25,
                                     width: '100%',
                                     outline: 'none',
-                                    background: '#212121'
+                                    background: '#212121',
+                                    color: '#FFF'
                                 }}
                                 placeholder="email"
                                 autoComplete="off"
@@ -78,7 +119,6 @@ export default class Todo extends Component {
                         </div>
                         <div>
                             <input
-
                                 style={{
                                     borderLeft: 0,
                                     borderTop: 0,
@@ -90,12 +130,20 @@ export default class Todo extends Component {
                                     height: 25,
                                     width: '100%',
                                     outline: 'none',
-                                    background: '#212121'
+                                    background: '#212121',
+                                    color: '#FFF'
                                 }}
                                 placeholder="language" autoComplete="off"
                                 onChange={(text) => this.setState({ language: text.target.value })}
                             />
                         </div>
+                        {error && <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                            <p style={{ color: '#FFF' }}>{error}</p>
+                        </div>}
                         <button
                             style={{
                                 marginTop: 20,
@@ -107,12 +155,14 @@ export default class Todo extends Component {
                                 fontSize: 18,
                                 color: '#FFF',
                                 background: '#141414'
-                            }}>
+                            }}
+                            type="submit"
+                        >
                             Save
                             </button>
                     </div>
                 </form>
-            </view>
+            </div>
         )
     }
 }
