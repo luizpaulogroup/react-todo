@@ -1,6 +1,6 @@
 import Storage from './StorageController';
 
-class User {
+class UserController {
 
     static save = function (todo) {
 
@@ -16,4 +16,4 @@ class User {
 
 }
 
-export default User;
+export default UserController;
