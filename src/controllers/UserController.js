@@ -1,14 +1,17 @@
+import Storage from './StorageController';
+
 class User {
 
     static save = function (user) {
 
-        localStorage.setItem('name',`${user.name}`);        
-        localStorage.setItem('email',`${user.email}`);        
-        localStorage.setItem('language',`${user.language}`);        
+        // Storage.delete('todo');
+        // Storage.clear('todo', [{ name: null, email: null, language: null }]);
 
-        console.log(localStorage.getItem('name'));
-        console.log(localStorage.getItem('email'));
-        console.log(localStorage.getItem('language'));
+        var todos = Storage.get('todo');
+
+        var add = [...todos, user];
+
+        Storage.add('todo', add);
     }
 
 }

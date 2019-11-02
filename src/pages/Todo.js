@@ -154,7 +154,8 @@ export default class Todo extends Component {
                                 fontWeight: 'bold',
                                 fontSize: 18,
                                 color: '#FFF',
-                                background: '#141414'
+                                background: '#141414',
+                                cursor: 'pointer'
                             }}
                             type="submit"
                         >
