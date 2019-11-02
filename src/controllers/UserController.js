@@ -14,6 +14,10 @@ class UserController {
         Storage.add('todo', add);
     }
 
+    static getAll = () => {
+        return Storage.get('todo');
+    }
+
 }
 
 export default UserController;
