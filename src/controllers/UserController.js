@@ -2,14 +2,14 @@ import Storage from './StorageController';
 
 class User {
 
-    static save = function (user) {
+    static save = function (todo) {
 
         // Storage.delete('todo');
         // Storage.clear('todo', [{ name: null, email: null, language: null }]);
 
         var todos = Storage.get('todo');
 
-        var add = [...todos, user];
+        var add = [...todos, todo];
 
         Storage.add('todo', add);
     }
